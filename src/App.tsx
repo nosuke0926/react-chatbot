@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import defaultDataset from 'dataset'
+import 'assets/styles/style.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface Props {
+  answers: Array<object>
+  chats: Array<object>
+  currentId: String
+  dataset: object
+  open: boolean
 }
 
-export default App;
+interface State {}
+
+export default class App extends React.Component<State, Props> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      answers: [],
+      chats: [],
+      currentId: 'init',
+      dataset: defaultDataset,
+      open: false,
+    }
+  }
+  render() {
+    return (
+      <section className="c-section">
+        <div className="c-box">{this.state.currentId}</div>
+      </section>
+    )
+  }
+}
