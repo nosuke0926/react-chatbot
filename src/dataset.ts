@@ -1,4 +1,4 @@
-const defaultDataset = {
+const defaultDataset: { [key: string]: { [key: string]: any } } = {
   init: {
     answers: [
       { content: '仕事を依頼したい', nextId: 'job_offer' },
