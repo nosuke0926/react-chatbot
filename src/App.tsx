@@ -2,10 +2,11 @@ import React from 'react'
 import defaultDataset from 'dataset'
 import 'assets/styles/style.css'
 import { AnswersList, Chats } from 'components/index'
+import FormDialog from 'components/forms/FormDialog'
 
 interface Props {
-  answers: Array<object>
-  chats: Array<object>
+  answers: object[]
+  chats: object[]
   currentId: string
   dataset: any
   open: boolean
@@ -24,6 +25,8 @@ export default class App extends React.Component<State, Props> {
       open: false,
     }
     this.selectAnswer = this.selectAnswer.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleClickOpen = this.handleClickOpen.bind(this)
   }
 
   displayNextQuestion = (nextQuestionId: string) => {
@@ -46,6 +49,10 @@ export default class App extends React.Component<State, Props> {
         setTimeout(() => {
           this.displayNextQuestion(nextQuestionId)
         }, 500)
+        break
+
+      case nextQuestionId === 'contact':
+        this.handleClickOpen()
         break
 
       case /^https:*/.test(nextQuestionId):
@@ -72,6 +79,14 @@ export default class App extends React.Component<State, Props> {
     }
   }
 
+  handleClickOpen = () => {
+    this.setState({ open: true })
+  }
+
+  handleClose = () => {
+    this.setState({ open: false })
+  }
+
   componentDidMount() {
     const initAnswer = ''
     this.selectAnswer(initAnswer, this.state.currentId)
@@ -93,6 +108,7 @@ export default class App extends React.Component<State, Props> {
             answers={this.state.answers}
             select={this.selectAnswer}
           />
+          <FormDialog open={this.state.open} handleClose={this.handleClose} />
         </div>
       </section>
     )
